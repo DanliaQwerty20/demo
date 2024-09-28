@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+</head>
+<body>
+<h1>Students</h1>
+<form th:action="@{/students/filter}" method="get">
+    <input type="text" name="fullName" placeholder="Filter by Full Name"/>
+    <button type="submit">Filter</button>
+</form>
+<form th:action="@{/students}" method="get">
+    <select id="sort" name="sort">
+        <option value="fullName">Sort by Full Name</option>
+        <option value="email">Sort by Email</option>
+        <option value="phone">Sort by Phone Number</option>
+    </select>
+    <button type="submit">Sort</button>
+</form>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Record Book Number</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.fullName}"></td>
+        <td th:text="${student.recordBookNumber}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.phoneNumber}"></td>
+        <td>
+            <a th:href="@{/students/{id}(id=${student.id})}">View</a>
+            <a th:href="@{/students/delete/{id}(id=${student.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+<a href="/students/add">Add Student</a>
+</body>
+</html>
